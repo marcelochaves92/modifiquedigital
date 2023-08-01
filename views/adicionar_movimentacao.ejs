@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Adicionar movimentação</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>Adicionar Movimentação</h2>
+        <form method="post" action="/adicionar-movimentacao">
+            <div class="mb-3">
+                <label for="data" class="form-label">Data:</label>
+                <input type="date" class="form-control" id="data" name="data" required>
+            </div>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição:</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" required>
+            </div>
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo:</label>
+                <select class="form-control" id="tipo" name="tipo" required>
+                    <option value="credito">Crédito</option>
+                    <option value="debito">Débito</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="valor" class="form-label">Valor:</label>
+                <input type="number" step="0.01" class="form-control" id="valor" name="valor" required>
+            </div>
+            <input type="hidden" name="usuario" value="<%= usuario %>">
+            <button type="submit" class="btn btn-primary">Adicionar Movimentação</button>
+    </div>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>

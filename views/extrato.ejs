@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Extrato de Usuário</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>Extrato de Usuário</h1>
+        <form method="post" action="/extrato">
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuário:</label>
+                <select class="form-control" id="usuario" name="usuario" required>
+                    <% usuarios.forEach((user)=> { %>
+                        <option value="<%= user.id %>" <%=user.id==usuario ? 'selected' : '' %>><%= user.nome %>
+                        </option>
+                        <% }) %>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="dataInicial" class="form-label">Data Inicial:</label>
+                <input type="date" class="form-control" id="dataInicial" name="dataInicial" required>
+            </div>
+            <div class="mb-3">
+                <label for="dataFinal" class="form-label">Data Final:</label>
+                <input type="date" class="form-control" id="dataFinal" name="dataFinal" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <% if (extrato.length> 0) { %>
+            <h2>Extrato de Movimentações</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% extrato.forEach((movimentacao)=> { %>
+                        <tr>
+                            <td>
+                                <%= new Date(movimentacao.data).toLocaleDateString('pt-BR') %>
+                            </td>
+                            <td>
+                                <%= movimentacao.descricao %>
+                            </td>
+                            <td>
+                                <%= movimentacao.tipo==='credito' ? 'Crédito' : 'Débito' %>
+                            </td>
+                            <td>
+                                <%= movimentacao.valor %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <h3>Saldo Atual: R$ <%= saldoAtual %>
+                    <% } %>
+                        <%- include('adicionar_movimentacao') %>
+
+    </div>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>
